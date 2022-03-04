@@ -41,15 +41,28 @@ namespace WebApplication1.Controllers
         [HttpDelete("DeleteProject/{id}")]
         public IActionResult RemoveProjekt(int id)
         {
+            var result = _projektService.GetSingleProjekt(id);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
             _projektService.RemoveProjekt(id);
-            return Ok();
+            return NoContent();
         }
 
         [HttpPut("UpdateProject/{id}")]
         public IActionResult UpdateProjekt(int id, UpdateProjektDto updatedProjekt)
         {
-            var result = _projektService.UpdateProjekt(id, updatedProjekt);
-            return Ok(result);
+            var result = _projektService.GetSingleProjekt(id);
+            if (result != null)
+            {
+                _projektService.UpdateProjekt(id, updatedProjekt);
+                result = _projektService.GetSingleProjekt(id);
+                return Ok(result);
+            }
+
+            return BadRequest();
         }
     }
 }

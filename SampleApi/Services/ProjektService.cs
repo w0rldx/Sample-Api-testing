@@ -53,11 +53,7 @@ public class ProjektService
     public void RemoveProjekt(int id)
     {
         var projektToRemove = _projektList.SingleOrDefault(x => x.Id == id);
-
-        if (projektToRemove != null)
-        {
-            _projektList.Remove(projektToRemove);
-        }
+        _projektList.Remove(projektToRemove);
     }
 
     public ProjektDto UpdateProjekt(int id, UpdateProjektDto updatedProjekt)

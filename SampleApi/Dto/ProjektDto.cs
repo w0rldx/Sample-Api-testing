@@ -1,4 +1,6 @@
-﻿namespace WebApplication1.Dto;
+﻿using System;
+
+namespace WebApplication1.Dto;
 
 public class ProjektDto
 {
@@ -6,6 +8,7 @@ public class ProjektDto
     public string Name { get; set; }
     public string Beschreibung { get; set; }
     public string ProjektLeiter { get; set; }
+    public DateTime CreateAt { get; set; }
 
     public ProjektDto(int id, string name, string beschreibung, string projektLeiter)
     {
@@ -13,5 +16,6 @@ public class ProjektDto
         Name = name;
         Beschreibung = beschreibung;
         ProjektLeiter = projektLeiter;
+        CreateAt = DateTime.Now;
     }
 }
