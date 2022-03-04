@@ -26,18 +26,18 @@ public class ProjektService
         List<ProjektDto> projektDtosList = new List<ProjektDto>();
         foreach (Projekt projekt in _projektList)
         {
-            projektDtosList.Add(new ProjektDto(projekt.Name, projekt.Beschreibung, projekt.ProjektLeiter));
+            projektDtosList.Add(new ProjektDto(projekt.Id ,projekt.Name, projekt.Beschreibung, projekt.ProjektLeiter));
         }
 
         return projektDtosList;
     }
 
-    public ProjektDto GetSingleProjekt(string name)
+    public ProjektDto GetSingleProjekt(int id)
     {
-        var result = _projektList.SingleOrDefault(x => x.Name == name);
+        var result = _projektList.SingleOrDefault(x => x.Id == id);
         if (result != null)
         {
-            return new ProjektDto(result.Name, result.Beschreibung, result.ProjektLeiter);
+            return new ProjektDto(result.Id ,result.Name, result.Beschreibung, result.ProjektLeiter);
         }
 
         return null;
@@ -47,13 +47,12 @@ public class ProjektService
     {
         Projekt projektToAdd = new Projekt(projekt.Name, projekt.Beschreibung, projekt.ProjektLeiter);
         _projektList.Add(projektToAdd);
-        return new ProjektDto(projektToAdd.Name, projektToAdd.Beschreibung, projektToAdd.ProjektLeiter);
+        return new ProjektDto(projektToAdd.Id, projektToAdd.Name, projektToAdd.Beschreibung, projektToAdd.ProjektLeiter);
     }
 
-    public void RemoveProjekt(string projektName)
+    public void RemoveProjekt(int id)
     {
-        // Fehler wenn mehr als ein Element mit dem Gleichen Namen im Projekt vorhanden ist
-        var projektToRemove = _projektList.SingleOrDefault(x => x.Name == projektName);
+        var projektToRemove = _projektList.SingleOrDefault(x => x.Id == id);
 
         if (projektToRemove != null)
         {
@@ -61,9 +60,9 @@ public class ProjektService
         }
     }
 
-    public ProjektDto UpdateProjekt(string projektName, UpdateProjektDto updatedProjekt)
+    public ProjektDto UpdateProjekt(int id, UpdateProjektDto updatedProjekt)
     {
-        var projektToUpdate = _projektList.SingleOrDefault(x => x.Name == projektName);
+        var projektToUpdate = _projektList.SingleOrDefault(x => x.Id == id);
 
         if (projektToUpdate != null)
         {
@@ -71,7 +70,7 @@ public class ProjektService
             projektToUpdate.Beschreibung = updatedProjekt.Beschreibung;
             projektToUpdate.ProjektLeiter = updatedProjekt.ProjektLeiter;
 
-            return new ProjektDto(projektToUpdate.Name, projektToUpdate.Beschreibung, projektToUpdate.ProjektLeiter);
+            return new ProjektDto(projektToUpdate.Id, projektToUpdate.Name, projektToUpdate.Beschreibung, projektToUpdate.ProjektLeiter);
         }
 
         return null;

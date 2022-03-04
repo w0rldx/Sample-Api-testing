@@ -25,30 +25,30 @@ namespace WebApplication1.Controllers
             return Ok(_projektService.GetAllProjekt());
         }
 
-        [HttpGet("GetSingleProjekt")]
-        public IActionResult GetSingleProjekt(string name)
+        [HttpGet("GetSingleProjekt/{id}")]
+        public IActionResult GetSingleProjekt(int id)
         {
-            return Ok(_projektService.GetSingleProjekt(name));
+            return Ok(_projektService.GetSingleProjekt(id));
         }
 
-        [HttpPut("CreateNewProject")]
+        [HttpPost("CreateNewProject")]
         public IActionResult AddProjekt(CreateNewProjektDto projekt)
         {
             var result = _projektService.AddProjekt(projekt);
             return Created("", result);
         }
 
-        [HttpDelete("DeleteProject")]
-        public IActionResult RemoveProjekt(string name)
+        [HttpDelete("DeleteProject/{id}")]
+        public IActionResult RemoveProjekt(int id)
         {
-            _projektService.RemoveProjekt(name);
+            _projektService.RemoveProjekt(id);
             return Ok();
         }
 
-        [HttpPost("UpdateProject")]
-        public IActionResult UpdateProjekt(UpdateProjektDto updatedProjekt)
+        [HttpPut("UpdateProject/{id}")]
+        public IActionResult UpdateProjekt(int id, UpdateProjektDto updatedProjekt)
         {
-            var result = _projektService.UpdateProjekt(updatedProjekt.Name, updatedProjekt);
+            var result = _projektService.UpdateProjekt(id, updatedProjekt);
             return Ok(result);
         }
     }
